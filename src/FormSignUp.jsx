@@ -1,15 +1,28 @@
+import { useState, useEffect } from "react";
 import { Button } from "@mui/material"
 import TextField from '@mui/material/TextField';
+import Switch from "@mui/material/Switch";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
 
 function FormSignUp () {
+    const [name, setName] = useState("PACO");
+    useEffect(() => {
+        console.log("Name cambió", name);
+    }, [name])
     return (
         <form>
-            <TextField 
+            <TextField  
                 id="name" 
                 label="Nombre" 
                 variant="outlined"
                 fullWidth
                 margin="normal"
+                onChange={(e) => {
+                    console.log(e.target.value);
+                    setName(e.target.value);
+                }}
+                value={ name }
             />
             <TextField 
                 id="lastName" 
@@ -26,11 +39,20 @@ function FormSignUp () {
                 margin="normal"
             />
 
+            <FormGroup>
+                <FormControlLabel 
+                    control={ 
+                    <Switch defaultChecked />
+                    } 
+                    label="Promociones"    
+                />
 
-            <label >Promociones</label>
-            <input type="checkbox"/>
-            <label >Novedades</label>
-            <input type="checkbox"/>
+                <FormControlLabel
+                    control={<Switch defaultChecked />
+                    }
+                    label="Novedades"
+                />
+            </FormGroup>
             <Button variant="contained">
                 Registrarse
             </Button>
