@@ -17,8 +17,30 @@ function FormSignUp ({ handleSubmit }) {
             error: false,
             message:
                 "Deben ser al menos 4 caracteres"
-        }, 
+        },
+        lastName: {
+            error: false,
+            message:
+                "Deben ser al menos 4 caracteres"
+        }
     })
+
+    //^Validación de min 3 char para el nombre
+    function validarNombre(nombre) {
+        if(nombre.length >= 3)
+            return { 
+                name: { 
+                    error: false, 
+                    message: '', }, 
+                }
+        else 
+            return { 
+                name: { 
+                    error: true, 
+                    message: "Deben ser al menoos 3 caracteres", 
+                }, 
+            }  
+    }
 
     return (
         <form 
@@ -50,6 +72,13 @@ function FormSignUp ({ handleSubmit }) {
                     ? errors.name.message 
                     : ""
                 }
+                onBlur={(e) => { //func se llama al salir del iput
+                    setErrors (
+                            validarNombre(
+                                e.target.value
+                            )
+                        )
+                    }}
             />
             <TextField 
                 id="lastName" 
